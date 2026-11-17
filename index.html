@@ -896,7 +896,9 @@ var mt=0;new MutationObserver(function(){if(vis){clearTimeout(mt);mt=setTimeout(
 })();
 </script>
 <script>
-(function(){var ls=document.querySelectorAll(".links a");ls.forEach(function(a){a.addEventListener("click",function(){ls.forEach(function(x){x.classList.toggle("cur",x===a);});});});})();
+(function(){var ls=[].slice.call(document.querySelectorAll(".links a")),tg=ls.map(function(a){return document.querySelector(a.getAttribute("href"));}),t=0;
+function spy(){var best=-1,bt=-1e9,y=innerHeight*.4;tg.forEach(function(e,k){if(!e)return;var r=e.getBoundingClientRect().top;if(r<=y&&r>bt){bt=r;best=k;}});ls.forEach(function(a,k){a.classList.toggle("cur",k===best);});}
+addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(spy,40);},{passive:true});addEventListener("hashchange",spy);spy();})();
 </script>
 
 <script>document.querySelectorAll(".nv-row .lang button").forEach(function(b,_,all){b.addEventListener("click",function(){all.forEach(function(x){x.classList.toggle("on",x===b);x.setAttribute("aria-pressed",x===b?"true":"false");});});});</script>
