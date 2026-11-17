@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://POSTAVI-NOVA-ADRESA/sitemap.xml
+Sitemap: https://iskrajodesign.github.io/iskrajodesign.portfolio/sitemap.xml
