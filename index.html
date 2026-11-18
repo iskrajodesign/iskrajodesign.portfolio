@@ -493,6 +493,25 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .A .bot{padding:0;color:var(--ink)}
 .A .bot b{color:var(--ink)}
 @media (max-width:820px){.A{padding:22px 18px}.A .top{grid-template-columns:1fr;gap:22px}.A .l{padding:0;border-bottom:0}.A .r{grid-template-columns:1fr}.A .opt,.A .formwrap{padding:22px 20px}.A .formwrap{padding-top:28px}.A .bot{padding:0}.A .big{font-size:28px}}
+/* small screens: nothing may leave the viewport */
+@media (max-width:820px){
+  h1,h2,h3,.big,.h2,.wm{overflow-wrap:anywhere}
+  .h2{font-size:clamp(22px,7.2vw,34px)}
+  .A{grid-template-columns:minmax(0,1fr)}
+  .A .top,.A .r,.brief{grid-template-columns:minmax(0,1fr)}
+  .A .bot b,.A .bot span{overflow-wrap:anywhere;min-width:0}
+  .A .l,.A .r,.A .opt,.A .formwrap,.brief label,.brief .want,.brief .note{min-width:0}
+  .A .big{font-size:clamp(22px,7.4vw,30px)}
+  .brief input{width:100%;min-width:0}
+  .fB.acc{grid-template-columns:minmax(0,1fr)}
+  .fB.acc .an{display:none}
+  .fB.acc .qs{border-bottom:0;padding:6px 0}
+  .fB .qs .pane{background:var(--ink);color:#1c1917;padding:16px 24px 20px;margin:4px 0 10px;display:block}
+  .fB .qs .pane[hidden]{display:none}
+  .fB .qs .pane .k,.fB .qs .pane h3{display:none}
+  .fB .qs .pane p{font-size:17px;color:#4a433d;margin:0}
+  .fB .qs button span{display:inline}
+}
 /* project dialog for other projects */
 .track .fr[data-p]{cursor:pointer}
 .track .fr[data-p]:focus-visible{outline:2px solid #e5838a;outline-offset:3px}
@@ -945,7 +964,11 @@ addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(spy,40);},{pas
 </script>
 
 <script>document.querySelectorAll(".nv-row .lang button").forEach(function(b,_,all){b.addEventListener("click",function(){all.forEach(function(x){x.classList.toggle("on",x===b);x.setAttribute("aria-pressed",x===b?"true":"false");});});});</script>
-<script>document.querySelectorAll("[data-faq]").forEach(function(w){var bs=w.querySelectorAll("[data-tab]"),ps=w.querySelectorAll("[data-pane]");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});ps.forEach(function(p){p.hidden=p.dataset.pane!==b.dataset.tab;});});});});</script>
+<script>document.querySelectorAll("[data-faq]").forEach(function(w){var bs=[].slice.call(w.querySelectorAll("[data-tab]")),ps=[].slice.call(w.querySelectorAll("[data-pane]")),an=w.querySelector(".an"),mq=matchMedia("(max-width:820px)");
+function show(b){bs.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});ps.forEach(function(p){p.hidden=p.dataset.pane!==b.dataset.tab;});}
+function lay(){if(mq.matches){w.classList.add("acc");bs.forEach(function(b,i){b.parentNode.insertBefore(ps[i],b.nextSibling);});}else{w.classList.remove("acc");ps.forEach(function(p){an.appendChild(p);});}}
+bs.forEach(function(b){b.addEventListener("click",function(){show(b);});});
+(mq.addEventListener?mq.addEventListener("change",lay):mq.addListener(lay));lay();});</script>
 <script>document.querySelectorAll("[data-open]").forEach(function(b){b.addEventListener("click",function(){var f=document.getElementById(b.dataset.open),o=f.hidden;f.hidden=!o;b.setAttribute("aria-expanded",o?"true":"false");});});document.addEventListener("click",function(e){var c=e.target.closest(".chips button");if(!c)return;c.parentNode.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});});</script>
 <script>(function(){var D={"z-arch": {"st": "Измислен бренд", "n": "Edge, архитектонско студио", "l": "Концепт за веб-сајт на архитектонско студио: големи слики и мирна навигација.", "tg": "Веб дизајн", "img": "edge-f", "url": "https://iskrajodesign.github.io/edge/"}, "z-fit": {"st": "Мој концепт", "n": "FitTrack", "l": "Концепт за платформа за фитнес тренери, анализирана по зони: од првиот екран и довербата до цените и повикот за акција.", "tg": "Веб дизајн · UX", "img": "fit-f"}, "k91": {"st": "Реален клиент, прикажано со дозвола", "n": "K-9 Pet Care", "l": "Веб-сајт за салон за нега и чување кучиња во Охрид, победнички дизајн од конкурс.", "tg": "Веб дизајн · UX", "img": "k9-f", "url": "https://iskrajodesign.github.io/mk.k-9/", "note": "Исход: победнички дизајн на конкурс. Салонот потоа не го презеде, а ми дозволи јавно да го покажам."}, "vet-t-s": {"st": "Демо сајт", "n": "Ветеринарна амбуланта (Концепт-дизајн)", "l": "Демо веб-сајт за ветеринарна амбуланта: итни случаи, прегледи и совети за миленици.", "tg": "Веб дизајн", "img": "vet-f", "url": "https://iskrajodesign.github.io/Vet-ambulanta-demo-sajt/"}, "tav-t-s": {"st": "Работа за клиент", "n": "Таверна на море", "l": "Веб-сајт за таверна со морска храна во Грција: мени, атмосфера и резервација.", "tg": "Веб дизајн", "img": "tav-f", "url": "https://iskrajodesign.github.io/tavernastsardaki.gr/"}, "fish-t-s": {"st": "Работа за клиент", "n": "Рибен ресторан", "l": "Темен и топол веб-сајт за рибен ресторан во Скопје.", "tg": "Веб дизајн", "img": "fish-f"}, "kids-t-s": {"st": "Демо сајт", "n": "Детска градинка (Концепт-дизајн)", "l": "Весел, шарен веб-сајт за градинка, за родители што бараат сигурност.", "tg": "Веб дизајн", "img": "kids-f", "url": "https://iskrajodesign.github.io/lastovicak/"}, "bub1-s": {"st": "Измислен бренд", "n": "BubbleFun", "l": "Концепт за онлајн продавница за здрава гума за џвакање од здрави состојки: без шеќер, аспартам и глутен, погодна за вегани.", "tg": "Веб продавница · UI", "img": "bub-f", "url": "https://iskrajodesign.github.io/bubble-fun/", "note": "Одлука: играта „Pop за твоја цена“. Три допири, три скриени попусти, а најдобриот останува во нарачката."}, "logi": {"st": "Реален проект", "n": "Логистика и складирање", "l": "Веб-сајт за компанија за логистика и складирање: услугите, просторот и контактот се прикажани на една страница.", "tg": "Веб дизајн", "img": "logi-f", "url": "https://iskrajodesign.github.io/mobil-trade.dooel.mk/"}},d=document.getElementById("pd"),q=function(c){return d.querySelector(c)},last=null;
 function open(k){var p=D[k];if(!p)return;q(".pd-st").textContent=p.st;q("#pd-h").textContent=p.n;q(".pd-l").textContent=p.l;q(".pd-tg").textContent=p.tg;var a=q(".pd-live");if(p.url){a.href=p.url;a.hidden=false}else{a.removeAttribute("href");a.hidden=true}q(".pd-note").textContent=p.note||"";var im=q(".pd-im img");im.src="img/"+p.img+".webp";im.alt=p.n;q(".pd-im").scrollTop=0;last=document.activeElement;d.showModal();}
