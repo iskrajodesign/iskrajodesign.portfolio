@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://iskrajodesign.github.io/iskrajodesign.portfolio/sitemap.xml
+Sitemap: https://iskrajodesign.vercel.app/sitemap.xml
