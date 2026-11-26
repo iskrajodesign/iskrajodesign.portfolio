@@ -1333,6 +1333,23 @@ fetch("https://formsubmit.co/ajax/"+MAIL,{method:"POST",headers:{"Content-Type":
 .then(function(){done();ok.textContent="Ви благодарам, пораката е испратена. Ќе ви се јавам наскоро.";f.reset();})
 .catch(function(){done();ok.innerHTML='Не успеа. <a href="mailto:'+MAIL+'?subject='+encodeURIComponent("Бриф за веб-сајт")+'&body='+encodeURIComponent(lines.join("\n"))+'">Испратете го преку вашата е-пошта</a>.';});});
 })();
+
+/* чиста адреса: без #top, #work итн. по кликнување */
+(function(){
+function clean(){try{history.replaceState(null,"",location.pathname+location.search);}catch(_){}}
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;
+  var h=a.getAttribute("href");if(a.target==="_blank")return;
+  var t=(h==="#"||h==="#top")?null:document.getElementById(h.slice(1));
+  if(h!=="#"&&h!=="#top"&&!t)return;
+  e.preventDefault();
+  var rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!t){window.scrollTo({top:0,behavior:rm?"auto":"smooth"});}
+  else{t.scrollIntoView({behavior:rm?"auto":"smooth",block:"start"});if(h==="#main"){try{t.focus({preventScroll:true});}catch(_){}}}
+  clean();
+});
+if(location.hash)clean();
+})();
 </script>
 </body>
 </html>
